@@ -26,7 +26,11 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = new User();
+        return userRepo.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User " + username + " was not found!"));
+    }
+
+    //        User user = new User();
 //        user.setUsername("1");
 //        user.setPassword("1");
 //        user.setAccountNonExpired(true);
@@ -38,8 +42,5 @@ public class MyUserDetailsService implements UserDetailsService {
 //        set.add(Role.USER);
 //        user.setAuthorities(set);
 //        return user;
-        return userRepo.findByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException("User " + username + " was not found!"));
-    }
 
 }
